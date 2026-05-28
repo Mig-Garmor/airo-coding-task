@@ -31,19 +31,34 @@ export function bindAuthToggleButtons() {
     showLoginButton.addEventListener("click", showLogin);
 }
 
+function resetLoginForm() {
+    loginForm.reset();
+}
+
+function resetRegisterForm() {
+    registerForm.reset();
+}
+
 export function showLogin() {
+    resetRegisterForm();
+
     loginSection.hidden = false;
     registerSection.hidden = true;
     quotationSection.hidden = true;
 }
 
 export function showRegister() {
+    resetLoginForm();
+
     loginSection.hidden = true;
     registerSection.hidden = false;
     quotationSection.hidden = true;
 }
 
 export function showQuotation() {
+    resetLoginForm();
+    resetRegisterForm();
+
     loginSection.hidden = true;
     registerSection.hidden = true;
     quotationSection.hidden = false;
