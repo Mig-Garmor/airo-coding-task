@@ -1,34 +1,31 @@
 # AIRO Coding Challenge
 
-## Setup
+## Requirements
 
-Install dependencies:
+Before running the project, make sure you have the following installed:
 
-```bash
-composer install
-npm install
-```
+- PHP
+- Composer
+- Node.js / npm
+- MySQL
 
-Create the environment file:
+## Quick setup
 
-```bash
-cp .env.example .env
-```
+First, make sure MySQL is running.
 
-Generate the app key and JWT secret:
-
-```bash
-php artisan key:generate
-php artisan jwt:secret
-```
-
-Create a MySQL database:
+Create the local database:
 
 ```sql
 CREATE DATABASE airo_coding_task;
 ```
 
-Update `.env` with your local database credentials:
+Copy the environment file:
+
+```bash
+cp .env.example .env
+```
+
+Update the database credentials in `.env` if needed:
 
 ```env
 DB_CONNECTION=mysql
@@ -39,11 +36,21 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Run migrations and seed the reviewer user:
+Then run the setup script:
 
 ```bash
-php artisan migrate:fresh --seed
+chmod +x setup.sh
+./setup.sh
 ```
+
+The setup script will:
+
+- Install PHP dependencies
+- Install Node dependencies
+- Generate the Laravel app key
+- Generate the JWT secret
+- Run migrations
+- Seed the reviewer user
 
 ## Run the app
 
@@ -76,6 +83,26 @@ Password: password123
 
 ```bash
 php artisan test
+```
+
+## Manual setup
+
+If you prefer not to use `setup.sh`, run the steps manually:
+
+```bash
+composer install
+npm install
+cp .env.example .env
+php artisan key:generate
+php artisan jwt:secret --force
+php artisan migrate:fresh --seed
+```
+
+Then start Laravel and Vite:
+
+```bash
+php artisan serve
+npm run dev
 ```
 
 ## Main endpoint
