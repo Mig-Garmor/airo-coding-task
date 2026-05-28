@@ -7,7 +7,7 @@
             id="email"
             name="email"
             type="email"
-            value="reviewer@example.com"
+            value=""
             required
         >
 
@@ -16,7 +16,7 @@
             id="password"
             name="password"
             type="password"
-            value="password123"
+            value=""
             required
         >
 
