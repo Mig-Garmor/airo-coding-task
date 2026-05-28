@@ -8,6 +8,11 @@ Route::name('api.')->group(function (): void {
 
     Route::post('/login', [AuthController::class, 'login']);
 
-    Route::post('/quotation', [QuotationController::class, 'store'])
-        ->middleware('auth:api');
+    Route::middleware('auth:api')->group(function (): void {
+        Route::get('/me', [AuthController::class, 'me'])
+            ->name('me');
+
+        Route::post('/quotation', [QuotationController::class, 'store'])
+            ->name('quotation.store');
+    });
 });
