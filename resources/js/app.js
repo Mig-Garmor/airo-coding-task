@@ -1,17 +1,46 @@
 import { getToken, setToken, clearToken } from "./auth/tokenStorage";
-import { login, fetchCurrentUser } from "./api/authApi";
+import { login, register, fetchCurrentUser } from "./api/authApi";
 import { createQuotation } from "./api/quotationApi";
 import { showMessage, clearMessage } from "./ui/messages";
 import {
     bindLoginForm,
+    bindRegisterForm,
     bindQuotationForm,
     bindLogoutButton,
+    bindAuthToggleButtons,
     showLogin,
     showQuotation,
     clearQuotationResult,
     showQuotationResult,
 } from "./ui/views";
 import { formatErrorResponse } from "./utils/errors";
+
+async function handleRegister(event) {
+    event.preventDefault();
+    clearMessage();
+
+    const formData = new FormData(event.target);
+
+    try {
+        const { response, data } = await register(
+            formData.get("name"),
+            formData.get("email"),
+            formData.get("password"),
+            formData.get("password_confirmation"),
+        );
+
+        if (!response.ok) {
+            showMessage(formatErrorResponse(data), "error");
+            return;
+        }
+
+        setToken(data.token);
+        showQuotation();
+        showMessage("Account created successfully.");
+    } catch (error) {
+        showMessage("Unable to create account. Please try again.", "error");
+    }
+}
 
 async function handleLogin(event) {
     event.preventDefault();
@@ -90,8 +119,10 @@ function handleLogout() {
 
 async function initializeApp() {
     bindLoginForm(handleLogin);
+    bindRegisterForm(handleRegister);
     bindQuotationForm(handleQuotation);
     bindLogoutButton(handleLogout);
+    bindAuthToggleButtons();
 
     const token = getToken();
 

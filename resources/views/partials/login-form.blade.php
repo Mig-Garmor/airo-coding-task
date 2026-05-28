@@ -22,4 +22,9 @@
 
         <button type="submit">Login</button>
     </form>
+
+    <p>
+        Don't have an account?
+        <button type="button" id="show-register-button">Sign up</button>
+    </p>
 </section>

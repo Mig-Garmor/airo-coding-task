@@ -14,6 +14,7 @@
 
     <main id="app">
         @include('partials.login-form')
+        @include('partials.register-form')
         @include('partials.quotation-form')
     </main>
 </body>
