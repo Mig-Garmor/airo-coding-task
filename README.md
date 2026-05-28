@@ -15,6 +15,10 @@ First, make sure MySQL is running.
 
 Create the local database:
 
+```bash
+mysql -u root -p
+```
+
 ```sql
 CREATE DATABASE airo_coding_task;
 ```
